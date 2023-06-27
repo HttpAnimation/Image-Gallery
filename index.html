@@ -21,6 +21,7 @@
       width: 200px;
       height: 200px;
       overflow: hidden;
+      position: relative;
     }
 
     .image-wrapper img {
@@ -32,6 +33,21 @@
 
     .image-wrapper:hover img {
       transform: scale(1.1);
+    }
+
+    .download-button {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .download-button:hover {
+      background-color: #45a049;
     }
   </style>
 </head>
@@ -71,7 +87,16 @@
             const img = document.createElement('img');
             img.src = image.src;
 
+            const downloadButton = document.createElement('button');
+            downloadButton.className = 'download-button';
+            downloadButton.textContent = 'Download';
+
+            downloadButton.addEventListener('click', function () {
+              downloadImage(image.src);
+            });
+
             imageWrapper.appendChild(img);
+            imageWrapper.appendChild(downloadButton);
             imageContainer.appendChild(imageWrapper);
           });
         })
@@ -80,7 +105,13 @@
           imageContainer.innerHTML = '<p>Error loading images.</p>';
         });
     }
+
+    function downloadImage(url) {
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = '';
+      link.click();
+    }
   </script>
 </body>
 </html>
-
